@@ -2,7 +2,7 @@ variable "cluster_identifier" {
     type = string
 }
 variable "node_type" {
-    type = string
+    # type = string
 }
 variable "master_username" {
     type = string
