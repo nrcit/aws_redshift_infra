@@ -4,7 +4,7 @@ provider "aws" {
 
 module "redshift" {
   source            = "../../modules/redshift-cluster"
-  cluster_identifier = "dev-redshift"
+  cluster_identifier = "dev-redshift1"
   node_type          = "ra3.xlplus"
   master_username    = "dev_admin"
   database_name      = "devdb"
