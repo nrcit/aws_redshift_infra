@@ -15,7 +15,7 @@ resource "random_password" "password" {
 }
 
 resource "aws_secretsmanager_secret" "example" {
-  name = "redshift-master-pass"
+  name = "redshift-master-password1"
 }
 
 resource "aws_secretsmanager_secret_version" "example" {
