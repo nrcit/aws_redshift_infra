@@ -1,0 +1,42 @@
+name: Deploy Infra
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy (dev/staging/prod)"
+        required: true
+        type: string
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::464037860553:role/github-actions-redshift-role
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Init Terraform
+        working-directory: infra/terraform/environments/${{ github.event.inputs.environment }}
+        run: terraform init
+
+      - name: Plan Terraform
+        working-directory: infra/terraform/environments/${{ github.event.inputs.environment }}
+        run: terraform plan -out=tfplan
+
+      - name: Apply Terraform
+        if: github.event.inputs.environment != 'prod'
+        working-directory: infra/terraform/environments/${{ github.event.inputs.environment }}
+        run: terraform apply -auto-approve tfplan

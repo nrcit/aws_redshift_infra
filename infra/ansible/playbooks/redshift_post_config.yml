@@ -1,0 +1,6 @@
+- name: Post-configure Redshift
+  hosts: localhost
+  tasks:
+    - name: Example task (placeholder)
+      debug:
+        msg: "Run SQL bootstrap scripts or config adjustments here"
