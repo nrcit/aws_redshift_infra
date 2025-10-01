@@ -18,3 +18,7 @@ variable "number_of_nodes" {
     type = number
     default = 1 
 }
+
+variable "master_password_sec_name" {
+  type = string
+}
