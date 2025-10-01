@@ -44,3 +44,6 @@ resource "aws_security_group" "redshift_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+data "aws_vpc" "default" {
+  default = true
+}
